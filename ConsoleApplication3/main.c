@@ -3,7 +3,5 @@
 int main()
 {
 	testmain();
-
-	testmain();
 	return 0;
 }
