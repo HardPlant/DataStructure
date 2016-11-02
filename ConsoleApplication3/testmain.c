@@ -66,7 +66,6 @@ int at_01() {
 	enqueue(testnode, 5);
 	_assert(at(testnode,0) == 4);
 	_assert(at(testnode,1) == 7);
-	_assert(testnode->tail->past == testnode->head);
 	_assert(at(testnode,2) == 5);
 	destroy(testnode);
 	return 0;

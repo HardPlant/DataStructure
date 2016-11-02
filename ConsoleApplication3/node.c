@@ -10,7 +10,6 @@ Node* makeNode(int data)
 	Node* toMake = (Node*)malloc(sizeof(Node));
 	toMake->item = data;
 	toMake->link = NULL;
-	toMake->past = NULL;
 	return toMake;
 }
 
@@ -40,7 +39,6 @@ void enqueue(Queue* dest, ElementType data)
 	else
 	{
 		dest->tail->link = src;
-		src->past = dest->tail;
 		dest->tail = src;
 	}
 	dest->length++;
@@ -67,8 +65,6 @@ ElementType dequeue(Queue* dest)
 		dest->head = dest->head->link;
 		if (dest->head == NULL)
 			dest->tail == NULL;
-		else
-			dest->head->past = NULL;
 		free(toPop);
 		dest->length--;
 		return result;
@@ -116,20 +112,33 @@ int getKbonacciNumber(Queue* dest, int k)
 {
 	Node* beforeTail;
 	int index, data;
-	beforeTail = dest->tail;
+	beforeTail = dest->head;
 	data = 0;
-	for (index = 0; index < k; index++, beforeTail = beforeTail->past)
-		data += beforeTail->item;
+	for (index = 0; index < k; index++, beforeTail = beforeTail->link)
+		data += ((Node*)(beforeTail->item))->item;
 	return data;
 }
 void makeKbonacci(Queue* dest, int k, int n)
 {
 	int index;
-	for(index = 0; index < k - 1; index++)
+	Queue* tailQueue = makeQueue();
+	Node* queueRunner;
+	for (index = 0; index < k - 1; index++)
+	{
 		enqueue(dest, 0);
+	}
 	enqueue(dest,1);
+	queueRunner = dest->head;
+	for (index = 0; index < k; index++)
+	{
+		enqueue(tailQueue, queueRunner);
+		queueRunner = queueRunner->link;
+	}
 	for(index = k; index < n; index++)
 	{
-		enqueue(dest,getKbonacciNumber(dest, k));
+		enqueue(dest,getKbonacciNumber(tailQueue, k));
+		dequeue(tailQueue);
+		enqueue(tailQueue, dest->tail);
 	}
+	destroy(tailQueue);
 }

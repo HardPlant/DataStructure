@@ -2,7 +2,6 @@
 #include "node.h"
 int main()
 {
-	testmain();
 	int k, n;
 	Queue* kbonacci;
 
@@ -13,6 +12,6 @@ int main()
 	kbonacci = makeQueue();
 	makeKbonacci(kbonacci, k, n);
 	printf("수열의 F_%d 값은 %d입니다.\n",n, at(kbonacci, n-1));
-
+	destroy(kbonacci);
 	return 0;
 }

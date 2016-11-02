@@ -3,7 +3,6 @@ typedef int ElementType;
 typedef struct node {
 	int item;
 	struct node* link;
-	struct node* past;
 }Node;
 typedef struct queue {
 	struct node* head;
