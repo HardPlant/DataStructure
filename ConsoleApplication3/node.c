@@ -100,7 +100,7 @@ ElementType at(Queue* dest, int index)
 		error("빈 큐");
 		return -1;
 	}
-	if (index > dest->length)
+	if (index > dest->length + 1)
 	{
 		error("큐 범위 초과");
 		return -1;

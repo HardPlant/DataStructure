@@ -18,5 +18,7 @@ void enqueue(Queue* dest, ElementType data);
 ElementType peek(Queue* dest);
 void destroy(Queue* dest);
 ElementType dequeue(Queue* dest);
+void printQueue(Queue* dest);
 ElementType at(Queue* dest, int index);
+int getKbonacciNumber(Queue* dest, int k);
 void makeKbonacci(Queue* dest, int k, int n);
