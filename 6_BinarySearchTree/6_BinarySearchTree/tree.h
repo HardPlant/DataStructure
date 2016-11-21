@@ -10,7 +10,25 @@ typedef struct TreeNode {
 }TreeNode;
 
 typedef TreeNode TreeHeader;
+TreeHeader* makeTree()
+{
+	return makeNode(0);
+}
+TreeNode* makeNode(ElementType data)
+{
+	TreeNode* toMake = (TreeNode*)malloc(sizeof(TreeNode));
+	toMake->data = data;
+	toMake->left = NULL;
+	toMake->right = NULL;
+}
+TreeHeader insertTree(TreeHeader* head)
+{
 
+}
+TreeHeader deleteTree(TreeHeader* head)
+{
+
+}
 void printNode(TreeNode* root);
 void inorder(TreeNode *root, int(*FUNC)(TreeNode*));
 void preorder(TreeNode *root, int(*FUNC)(TreeNode*));
