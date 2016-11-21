@@ -146,13 +146,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="binarySearchTree.c" />
+    <ClCompile Include="FirstSearch.c" />
+    <ClCompile Include="LinkedList.c" />
     <ClCompile Include="main.c" />
-    <ClCompile Include="queue.c" />
     <ClCompile Include="tree.c" />
     <ClCompile Include="treetest.c" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="queue.h" />
+    <ClInclude Include="binarySearchTree.h" />
+    <ClInclude Include="FirstSearch.h" />
+    <ClInclude Include="linkedlist.h" />
     <ClInclude Include="tree.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
