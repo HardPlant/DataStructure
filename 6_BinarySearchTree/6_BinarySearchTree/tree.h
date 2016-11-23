@@ -1,4 +1,5 @@
-#pragma once
+#ifndef TREE_H_6
+#define TREE_H_6
 #include <stdio.h>
 #include <stdlib.h>
 #include <memory.h>
@@ -33,8 +34,9 @@ void printNode(TreeNode* root);
 void inorder(TreeNode *root, int(*FUNC)(TreeNode*));
 void preorder(TreeNode *root, int(*FUNC)(TreeNode*));
 void postorder(TreeNode *root, int(*FUNC)(TreeNode*));
-void levelorder(TreeNode* ptr, int(*FUNC)(TreeNode*));
+void levelorder(TreeNode* ptr, int(*FUNC)(TreeNode*));/*
 int getNodeOfOneChild(TreeNode* ptr);
 int findMin(TreeNode* root, int min);
 int findMax(TreeNode* root, int max);
-void findMinMax(TreeNode *root);
+void findMinMax(TreeNode *root);*/
+#endif
