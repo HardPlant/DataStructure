@@ -82,24 +82,41 @@ void excuteCommand(char input[], char DStoUse[], void* createdDS)
 	}
 	if (strncmp(input, "Search", sizeof("Search")) == 0)
 	{
-
+		selectSearch(DStoUse, createdDS);
 	}
 	if (strncmp(input, "List", sizeof("List")) == 0)
 	{
-
+		selectList(DStoUse, createdDS);
 	}
 }
+
 void selectInsert(char DStoUse[], void* createdDS)
 {
 	void(*insertFunc)(void*, int) = 0;
 	if (strncmp(DStoUse, "BST", sizeof("BST")) == 0) insertFunc = insertBST;
-	if (strncmp(DStoUse, "MaxHeap", sizeof("MaxHeap")) == 0) insertFunc = insertMaxHeap;
+	if (strncmp(DStoUse, "MaxHeap", sizeof("MaxHeap")) == 0) insertFunc = insertBST;
 	insertCommand(createdDS, insertFunc);
 }
+void selectList(char DStoUse[], void* createdDS)
+{
+	void(*listFunc)(void*) = 0;
+	if (strncmp(DStoUse, "BST", sizeof("BST")) == 0) listFunc = insertBST;
+	if (strncmp(DStoUse, "MaxHeap", sizeof("MaxHeap")) == 0) listFunc = insertBST;
+	insertCommand(createdDS, listFunc);
+}
+void selectSearch(char DStoUse[], void* createdDS)
+{
+	void(*searchFunc)(void*, int) = 0;
+	if (strncmp(DStoUse, "BST", sizeof("BST")) == 0) searchFunc = insertBST;
+	if (strncmp(DStoUse, "MaxHeap", sizeof("MaxHeap")) == 0) searchFunc = insertBST;
+	insertCommand(createdDS, searchFunc);
+}
+
 void insertBST(void* createdDS, int data) // int 임시 함수
 {
 	printf("%d\n", data);
 }
+
 int insertCommand(void* createdDS, void*(*insertFunc)(void*, int))
 {
 	char input[100];
@@ -120,11 +137,6 @@ int insertCommand(void* createdDS, void*(*insertFunc)(void*, int))
 			splittedNumber = strtok_s(NULL, ",", &left);
 		}
 	}
-	return 0;
-}
-void insertMaxHeap(void* createdDS, int data)
-{
-	printf("InsertMaxHeap\n");
 	return 0;
 }
 int isInputEnd()
