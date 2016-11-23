@@ -22,6 +22,8 @@ void getDS(char DStoUse[])
 void loopEntry(char DStoUse[])
 {
 	char input[100];
+	void* createdDS;
+	createdDS = allocateDS(DStoUse);
 	printf("입력 예 : \n\t Insert 300, 600, 200 \n\t List \n\t Search 500, 358\n");
 	while (1)
 	{
@@ -29,13 +31,31 @@ void loopEntry(char DStoUse[])
 		scanf_s("%s", input, sizeof(input));
 		if (isCommand(input))
 		{
-			excuteCommand(input, DStoUse);
+			excuteCommand(input, DStoUse, createdDS);
 		}
 		else
 		{
 			printf("잘못 입력하셨습니다.\n");
 		}
 	}
+}
+int* makeArray() // int 임시 함수
+{
+	int* toMake = (int*)malloc(sizeof(int));
+	return toMake;
+}
+void* allocateDS(char DStoUse[])
+{
+	void* toAllocate = NULL;
+	if (strncmp(DStoUse, "BST", sizeof("BST")) == 0)
+	{
+		toAllocate = (void*)makeArray();
+	}
+	if (strncmp(DStoUse, "MaxHeap", sizeof("MaxHeap")) == 0)
+	{
+
+	}
+	return toAllocate;
 }
 int isAvailableDS(char DStoUse[])
 {
@@ -54,11 +74,11 @@ int isCommand(char input[])
 	if (strncmp(input, "List", sizeof("List")) == 0) return 1;
 	return 0;
 }
-void excuteCommand(char input[], char DStoUse[])
+void excuteCommand(char input[], char DStoUse[], void* createdDS)
 {
 	if (strncmp(input, "Insert", sizeof("Insert")) == 0)
 	{
-		selectInsert(DStoUse);
+		selectInsert(DStoUse,createdDS);
 	}
 	if (strncmp(input, "Search", sizeof("Search")) == 0)
 	{
@@ -69,14 +89,18 @@ void excuteCommand(char input[], char DStoUse[])
 
 	}
 }
-void selectInsert(char DStoUse[])
+void selectInsert(char DStoUse[], void* createdDS)
 {
-	int(*excute)() = 0;
-	if (strncmp(DStoUse, "BST", sizeof("BST")) == 0) excute = insertBST;
-	if (strncmp(DStoUse, "MaxHeap", sizeof("MaxHeap")) == 0) excute = insertMaxHeap;
-	excute();
+	void(*insertFunc)(void*, int) = 0;
+	if (strncmp(DStoUse, "BST", sizeof("BST")) == 0) insertFunc = insertBST;
+	if (strncmp(DStoUse, "MaxHeap", sizeof("MaxHeap")) == 0) insertFunc = insertMaxHeap;
+	insertCommand(createdDS, insertFunc);
 }
-int insertBST()
+void insertBST(void* createdDS, int data) // int 임시 함수
+{
+	printf("%d\n", data);
+}
+int insertCommand(void* createdDS, void*(*insertFunc)(void*, int))
 {
 	char input[100];
 	char* splittedNumber;
@@ -85,18 +109,20 @@ int insertBST()
 	while (1)
 	{
 		if (isInputEnd()) break;
+
 		scanf_s("%s", input, sizeof(input));
+
 		splittedNumber = strtok_s(input, ",", &left);
 		while (splittedNumber != NULL)
 		{
 			in = atoi(splittedNumber);
-			printf("%d\n", in); // insert!
+			insertFunc(createdDS, in);
 			splittedNumber = strtok_s(NULL, ",", &left);
 		}
 	}
 	return 0;
 }
-int insertMaxHeap()
+void insertMaxHeap(void* createdDS, int data)
 {
 	printf("InsertMaxHeap\n");
 	return 0;
