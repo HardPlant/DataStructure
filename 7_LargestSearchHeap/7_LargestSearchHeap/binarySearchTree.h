@@ -16,7 +16,7 @@ BTree* insertBTree(BTreeNode** root, ElementType key);
 BTreeNode* deleteBTree(BTreeNode **root, ElementType key);
 int BTreeRefCount;
 void initBTreeRefCount();
-int getBTreeRefCount();
+int getBTreeRefCount(char* str);
 void printBTreeNode(BTreeNode* root);
 void printBTree(BTree* head);
 BTreeNode* BTgoLeft(BTreeNode* current);

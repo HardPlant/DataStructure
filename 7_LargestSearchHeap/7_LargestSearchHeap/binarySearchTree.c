@@ -65,7 +65,6 @@ BTree* insertBTree(BTreeNode** root, ElementType key)
 {
 	BTreeNode *parent, *temp;
 	BTreeNode *toInsert;
-	initBTreeRefCount();
 	temp = *root;
 	parent = NULL;
 	if (root == NULL)
@@ -88,7 +87,6 @@ BTree* insertBTree(BTreeNode** root, ElementType key)
 			parent->left = toInsert;
 		else parent->right = toInsert;
 	else *root = toInsert;
-	getBTreeRefCount("삽입");
 	return *root; // root가 그대로거나 toInsert임.
 }
 BTreeNode* deleteBTree(BTreeNode **root, ElementType key)
@@ -100,9 +98,9 @@ BTreeNode* deleteBTree(BTreeNode **root, ElementType key)
 	{
 		parent = temp;
 		if (key < BTgetKey(parent))
-			temp = parent->left;
+			temp = BTgoLeft(parent);
 		else
-			temp = parent->right;
+			temp = BTgoRight(parent);
 	}
 	if (temp == NULL)
 		return *root;
@@ -110,7 +108,7 @@ BTreeNode* deleteBTree(BTreeNode **root, ElementType key)
 	{
 		if (parent != NULL)
 		{
-			if (parent->left == temp)
+			if (BTgoLeft(parent) == temp)
 				parent->left = NULL;
 			else
 				parent->right = NULL;
@@ -118,11 +116,11 @@ BTreeNode* deleteBTree(BTreeNode **root, ElementType key)
 		else
 			*root = NULL;
 	}
-	else if ((temp->left == NULL) || (temp->right == NULL))
+	else if ((BTgoLeft(temp) == NULL) || (BTgoRight(temp) == NULL))
 	{
-		child = (temp->left != NULL) ? temp->left : temp->right;
+		child = (BTgoLeft(temp) != NULL) ? temp->left : temp->right;
 		if (parent != NULL)
-			if (parent->left == temp)
+			if (BTgoLeft(parent) == temp)
 				parent->left = child;
 			else
 				parent->right = child;
@@ -132,13 +130,13 @@ BTreeNode* deleteBTree(BTreeNode **root, ElementType key)
 	else
 	{
 		succesorParent = temp;
-		successor = temp->right;
+		successor = BTgoRight(temp);
 		while (successor->left != NULL)
 		{
 			succesorParent = successor;
 			successor = successor->left;
 		}
-		if (succesorParent->left == successor)
+		if (BTgoRight(succesorParent) == successor)
 			succesorParent->left = successor->right;
 		else
 			succesorParent->right = successor->right;

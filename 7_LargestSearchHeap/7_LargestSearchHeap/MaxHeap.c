@@ -18,7 +18,6 @@ void insertMaxHeap(MaxHeap *head, MHelement item)
 	int i, parent;
 	i = ++(head->heap_size);
 	parent = MHgoParent(i);
-	initMHRefCount();
 	while ((i != 1) && (item.key > MHgetKey(head,parent)))
 	{
 		head->heap[i] = head->heap[parent];
@@ -26,7 +25,6 @@ void insertMaxHeap(MaxHeap *head, MHelement item)
 		parent = MHgoParent(i);
 	}
 	head->heap[i] = item;
-	getMHRefCount("»ğÀÔ");
 
 }
 MHelement deleteMaxHeap(MaxHeap *head)

@@ -42,7 +42,9 @@ void BSTLoopEntry()
 				current = ints;
 				while (*current != INPUT_END)
 				{
+					initBTreeRefCount();
 					insertBTree(&(createdDS), *current);
+					getBTreeRefCount("삽입");
 					current++;
 				}
 				free(ints);
@@ -53,7 +55,9 @@ void BSTLoopEntry()
 				current = ints;
 				while (*current != INPUT_END)
 				{
+					initBTreeRefCount();
 					BTreeLargestSearch(createdDS, *current);
+					getBTreeRefCount("검색");
 					current++;
 				}
 				free(ints);
@@ -90,7 +94,9 @@ void MaxHeapLoopEntry()
 				while (*current != INPUT_END)
 				{
 					item.key = *current;
+					initMHRefCount();
 					insertMaxHeap(createdDS, item);
+					getMHRefCount("삽입");
 					current++;
 				}
 				free(ints);
@@ -101,7 +107,9 @@ void MaxHeapLoopEntry()
 				current = ints;
 				while (*current != INPUT_END)
 				{
+					initMHRefCount();
 					maxHeapLargestSearch(createdDS, *current);
+					getMHRefCount("검색");
 					current++;
 				}
 				free(ints);
@@ -172,10 +180,8 @@ void BTreeLargestSearch(BTree* head, ElementType item)
 {
 	BTree* largest, *current;
 	int currentKey;
-	initBTreeRefCount();
 	if (head == NULL)
 	{
-		getBTreeRefCount("검색");
 		return;
 	}
 	largest = head;
@@ -185,7 +191,6 @@ void BTreeLargestSearch(BTree* head, ElementType item)
 	}
 	if (largest->key < item)
 	{
-		getBTreeRefCount("검색");
 		return;
 	}
 	current = head;
@@ -204,24 +209,19 @@ void BTreeLargestSearch(BTree* head, ElementType item)
 	}
 	else if (current->key == item)
 		deleteBTree(&head, item);
-	getBTreeRefCount("검색");
 }
 void maxHeapLargestSearch(MaxHeap *head, KeyType key)
 {
 	MaxHeap* largest = head;
 	MHelement item;
 	int currentIndex = 1;
-	int leftIndex, rightIndex;
-	initMHRefCount();
 	if (MHgetKey(head, currentIndex) < key)
 	{
-		getMHRefCount("검색");
 		return;
 	}
 	if (MHgetKey(head, currentIndex) == key)
 	{
 		deleteMaxHeap(head);
-		getMHRefCount("검색");
 		return;
 	}
 	if (MHgetKey(head, currentIndex) > key)
@@ -229,7 +229,6 @@ void maxHeapLargestSearch(MaxHeap *head, KeyType key)
 		item.key = MHgetKey(largest, 1) - key;
 		deleteMaxHeap(head);
 		insertMaxHeap(head, item);
-		getMHRefCount("검색");
 		return;
 	}
 }
