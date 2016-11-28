@@ -179,7 +179,6 @@ int isInputEnd()
 void BTreeLargestSearch(BTree* head, ElementType item)
 {
 	BTree* largest, *current;
-	int currentKey;
 	if (head == NULL)
 	{
 		return;
@@ -193,21 +192,12 @@ void BTreeLargestSearch(BTree* head, ElementType item)
 	{
 		return;
 	}
-	current = head;
-	while (current != NULL && BTgetKey(current) != item)
-	{
-		currentKey = BTgetKey(current);
-		if (currentKey > item)
-			current = BTgoLeft(current);
-		else if (currentKey < item)
-			current = BTgoRight(current);
-	}
-	if (current == NULL && largest->key > item)
+	if (largest->key > item)
 	{
 		insertBTree(&head, largest->key - item);
 		deleteBTree(&head, largest->key);
 	}
-	else if (current->key == item)
+	else 
 		deleteBTree(&head, item);
 }
 void maxHeapLargestSearch(MaxHeap *head, KeyType key)

@@ -29,48 +29,48 @@ void insertMaxHeap(MaxHeap *head, MHelement item)
 }
 MHelement deleteMaxHeap(MaxHeap *head)
 {
-	int parent, child;
+	int parent, leftChild,rightChild;
 	MHelement item, temp;
 	item = head->heap[1];
 	temp = head->heap[(head->heap_size)--];
 	parent = 1;
-	child = 2;
-	while (child <= head->heap_size)
+	leftChild = MHgoLeft(parent);
+	rightChild = MHgoRight(parent);
+	while (leftChild <= head->heap_size)
 	{
-		if ((child < head->heap_size)
-			&& (head->heap[child].key) < head->heap[child + 1].key)
-			child++;
-		if (temp.key >= head->heap[child].key)
+		if ((leftChild < head->heap_size))
+		{
+			if (MHgetKey(head,leftChild) >= MHgetKey(head,rightChild))
+				head->heap[parent] = head->heap[leftChild];
+			else if (MHgetKey(head, leftChild) < MHgetKey(head, rightChild))
+				head->heap[parent] = head->heap[rightChild];
+		}
+		if (temp.key >= head->heap[leftChild].key)
 			break;
-		head->heap[parent] = head->heap[child];
-		parent = child;
-		child *= 2;
+		parent = leftChild;
+		rightChild = MHgoRight(leftChild); 
+		leftChild = MHgoLeft(leftChild);
+		
 	}
 	head->heap[parent] = temp;
 	return item;
 }
-KeyType searchMaxHeap(MaxHeap *head, KeyType key)
+int searchMaxHeap(MaxHeap *head, KeyType key)
 {
 	int left, right, current;
 	current = 1;
-	while (head->heap[current].key != key)
+	int index;
+	for (index = 1; index < head->heap_size; index++)
 	{
-		left = MHgoLeft(current);
-		right = MHgoRight(current);
-		if (isNull(head,current)) // 단말 노드 도달
-		{
-			return -1;
-		}
-
-		if (head->heap[left].key < key && head->heap[right].key < key) // 키가 현재 노드값이 아니고 자식 노드들보다 클 경우 실패
-		{
-			return -1;
-		}
-		if (head->heap[left].key < key && head->heap[right].key >= key)
-			current = right;
-		else
-			current = left;
+		MHRefCount++;
+		left = MHgoLeft(index);
+		right = MHgoRight(index);
+		if (head->heap[index].key == key)
+			return index;
+		if (MHgetKey(head, left) < key && MHgetKey(head, right) < key)
+			break;
 	}
+	return -1;
 }
 void listMaxHeap(MaxHeap *head)
 {
