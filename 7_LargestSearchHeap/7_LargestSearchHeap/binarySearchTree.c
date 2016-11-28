@@ -100,7 +100,7 @@ BTreeNode* deleteBTree(BTreeNode **root, ElementType key)
 		if (key < BTgetKey(parent))
 			temp = BTgoLeft(parent);
 		else
-			temp = BTgoRight(parent);
+			temp = parent->right;
 	}
 	if (temp == NULL)
 		return *root;
@@ -118,7 +118,7 @@ BTreeNode* deleteBTree(BTreeNode **root, ElementType key)
 	}
 	else if ((BTgoLeft(temp) == NULL) || (BTgoRight(temp) == NULL))
 	{
-		child = (BTgoLeft(temp) != NULL) ? temp->left : temp->right;
+		child = ((BTgoLeft(temp) != NULL)) ? temp->left : temp->right;
 		if (parent != NULL)
 			if (BTgoLeft(parent) == temp)
 				parent->left = child;
@@ -130,13 +130,13 @@ BTreeNode* deleteBTree(BTreeNode **root, ElementType key)
 	else
 	{
 		succesorParent = temp;
-		successor = BTgoRight(temp);
-		while (successor->left != NULL)
+		successor = temp->right;
+		while ((BTgoLeft(successor) != NULL))
 		{
 			succesorParent = successor;
 			successor = successor->left;
 		}
-		if (BTgoRight(succesorParent) == successor)
+		if ((BTgoLeft(succesorParent) == successor))
 			succesorParent->left = successor->right;
 		else
 			succesorParent->right = successor->right;
