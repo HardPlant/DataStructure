@@ -146,9 +146,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\6_BinarySearchTree\6_BinarySearchTree\binarySearchTree.c" />
+    <ClCompile Include="MaxHeap.c" />
     <ClCompile Include="main.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\6_BinarySearchTree\6_BinarySearchTree\binarySearchTree.h" />
+    <ClInclude Include="MaxHeap.h" />
     <ClInclude Include="main.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

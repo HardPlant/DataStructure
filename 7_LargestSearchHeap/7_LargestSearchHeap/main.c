@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include "main.h"
+#include "MaxHeap.h"
+#include "../../6_BinarySearchTree/6_BinarySearchTree/binarySearchTree.h"
 
 
 int main()
@@ -49,11 +51,11 @@ void* allocateDS(char DStoUse[])
 	void* toAllocate = NULL;
 	if (strncmp(DStoUse, "BST", sizeof("BST")) == 0)
 	{
-		toAllocate = (void*)makeArray();
+		toAllocate = (void*)makeBTree(0);
 	}
 	if (strncmp(DStoUse, "MaxHeap", sizeof("MaxHeap")) == 0)
 	{
-
+		toAllocate = (void*)makeMaxHeap();
 	}
 	return toAllocate;
 }
@@ -62,10 +64,6 @@ int isAvailableDS(char DStoUse[])
 	if (strncmp(DStoUse, "BST", sizeof("BST")) == 0) return 1;
 	if (strncmp(DStoUse, "MaxHeap", sizeof("MaxHeap")) == 0) return 1;
 	else return 0;
-}
-void parse(char input[], int size)
-{
-	printf("%s\n", input);
 }
 int isCommand(char input[])
 {
@@ -93,16 +91,16 @@ void excuteCommand(char input[], char DStoUse[], void* createdDS)
 void selectInsert(char DStoUse[], void* createdDS)
 {
 	void(*insertFunc)(void*, int) = 0;
-	if (strncmp(DStoUse, "BST", sizeof("BST")) == 0) insertFunc = insertBST;
-	if (strncmp(DStoUse, "MaxHeap", sizeof("MaxHeap")) == 0) insertFunc = insertBST;
+	if (strncmp(DStoUse, "BST", sizeof("BST")) == 0) insertFunc = insertBTree;
+	if (strncmp(DStoUse, "MaxHeap", sizeof("MaxHeap")) == 0) insertFunc = insertMaxHeap;
 	insertCommand(createdDS, insertFunc);
 }
 void selectList(char DStoUse[], void* createdDS)
 {
 	void(*listFunc)(void*) = 0;
-	if (strncmp(DStoUse, "BST", sizeof("BST")) == 0) listFunc = insertBST;
+	if (strncmp(DStoUse, "BST", sizeof("BST")) == 0) listFunc = listBST;
 	if (strncmp(DStoUse, "MaxHeap", sizeof("MaxHeap")) == 0) listFunc = insertBST;
-	insertCommand(createdDS, listFunc);
+	listFunc(DStoUse);
 }
 void selectSearch(char DStoUse[], void* createdDS)
 {
@@ -147,17 +145,3 @@ int isInputEnd()
 	ungetc(current, stdin);
 	return 0;
 }
-//void selectList(char DStoUse[])
-//{
-//	int(*excute)();
-//	if (strcpy(DStoUse, "BST") == 0) excute = listBST;
-//	if (strcpy(DStoUse, "MaxHeap") == 0) excute = listMaxHeap;
-//	return excute;
-//}
-//void selectSearch(char DStoUse[])
-//{
-//	int(*excute)();
-//	if (strcpy(DStoUse, "BST") == 0) excute = largestSearchBST;
-//	if (strcpy(DStoUse, "MaxHeap") == 0) excute = largestSearchMaxHeap;
-//	return excute;
-//}
