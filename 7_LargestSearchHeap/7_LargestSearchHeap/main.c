@@ -3,7 +3,7 @@
 #include <string.h>
 #include "main.h"
 #include "MaxHeap.h"
-#include "../../6_BinarySearchTree/6_BinarySearchTree/binarySearchTree.h"
+#include "binarySearchTree.h"
 
 
 int main()
@@ -92,21 +92,21 @@ void selectInsert(char DStoUse[], void* createdDS)
 {
 	void(*insertFunc)(void*, int) = 0;
 	if (strncmp(DStoUse, "BST", sizeof("BST")) == 0) insertFunc = insertBTree;
-	if (strncmp(DStoUse, "MaxHeap", sizeof("MaxHeap")) == 0) insertFunc = insertMaxHeap;
+	if (strncmp(DStoUse, "MaxHeap", sizeof("MaxHeap")) == 0) insertFunc = insertMaxHeapInt;
 	insertCommand(createdDS, insertFunc);
 }
 void selectList(char DStoUse[], void* createdDS)
 {
 	void(*listFunc)(void*) = 0;
-	if (strncmp(DStoUse, "BST", sizeof("BST")) == 0) listFunc = listBST;
-	if (strncmp(DStoUse, "MaxHeap", sizeof("MaxHeap")) == 0) listFunc = insertBST;
+	if (strncmp(DStoUse, "BST", sizeof("BST")) == 0) listFunc = printBTree;
+	if (strncmp(DStoUse, "MaxHeap", sizeof("MaxHeap")) == 0) listFunc = listMaxHeap;
 	listFunc(DStoUse);
 }
 void selectSearch(char DStoUse[], void* createdDS)
 {
 	void(*searchFunc)(void*, int) = 0;
-	if (strncmp(DStoUse, "BST", sizeof("BST")) == 0) searchFunc = insertBST;
-	if (strncmp(DStoUse, "MaxHeap", sizeof("MaxHeap")) == 0) searchFunc = insertBST;
+	if (strncmp(DStoUse, "BST", sizeof("BST")) == 0) searchFunc = searchBTree;
+	if (strncmp(DStoUse, "MaxHeap", sizeof("MaxHeap")) == 0) searchFunc = searchMaxHeap;
 	insertCommand(createdDS, searchFunc);
 }
 

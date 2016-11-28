@@ -1,3 +1,4 @@
+#pragma once
 #include "binarySearchTree.h"
 BTreeRefCount = 0;
 BTreeNode* makeBTreeNode(ElementType data)

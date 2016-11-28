@@ -13,14 +13,15 @@ typedef struct TreeNode {
 typedef TreeNode TreeHeader;
 TreeHeader* makeTree()
 {
-	return makeNode(0);
+	return makeTreeNode(0);
 }
-TreeNode* makeNode(ElementType data)
+TreeNode* makeTreeNode(ElementType data)
 {
 	TreeNode* toMake = (TreeNode*)malloc(sizeof(TreeNode));
 	toMake->data = data;
 	toMake->left = NULL;
 	toMake->right = NULL;
+	return toMake;
 }
 TreeHeader insertTree(TreeHeader* head)
 {

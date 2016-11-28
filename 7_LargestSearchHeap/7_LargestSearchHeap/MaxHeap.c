@@ -7,21 +7,27 @@ MaxHeap* makeMaxHeap()
 	toMake->heap_size = 0;
 	return toMake;
 }
-void insertMaxHeap(MaxHeap *head, element item)
+void insertMaxHeap(MaxHeap *head, MHelement item)
 {
 	int i;
 	i = ++(head->heap_size);
-	while ((i != 1) && (item.key > h->heap[i / 2].key))
+	while ((i != 1) && (item.key > head->heap[i / 2].key))
 	{
-		h - head[i] = h->heap[i / 2];
+		head->heap[i] = head->heap[i / 2];
 		i /= 2;
 	}
-	h->heap[i] = item;
+	head->heap[i] = item;
 }
-element deleteMaxHeap(MaxHeap *head)
+void insertMaxHeapInt(MaxHeap *head, int data)
+{
+	MHelement item;
+	item.key = data;
+	insertMaxHeap(head, item);
+}
+MHelement deleteMaxHeap(MaxHeap *head)
 {
 	int parent, child;
-	element item, temp;
+	MHelement item, temp;
 	item = head->heap[1];
 	temp = head->heap[(head->heap_size)--];
 	parent = 1;
@@ -46,8 +52,8 @@ KeyType searchMaxHeap(MaxHeap *head, KeyType key)
 	current = 1;
 	while (head->heap[current].key != key)
 	{
-		left = goLeft(current);
-		right = goRight(current);
+		left = MHgoLeft(current);
+		right = MHgoRight(current);
 		if (head->heap[left].key == 0 && head->heap[right].key == 0) // 단말 노드 도달
 		{
 			fprintf(stderr, "찾을 수 없음\n");
@@ -74,20 +80,20 @@ void inorderPrint(MaxHeap *head, int current)
 {
 	if (!isNull(head, current))
 	{
-		inorderPrint(head, goLeft(current));
+		inorderPrint(head, MHgoLeft(current));
 		printf("%d ", head->heap[current].key);
-		inorderPrint(head, goRight(current));
+		inorderPrint(head, MHgoRight(current));
 	}
 }
-int goLeft(int index)
+int MHgoLeft(int index)
 {
 	return index * 2;
 }
-int goRight(int index)
+int MHgoRight(int index)
 {
 	return (index * 2)+1;
 }
-int goParent(int index)
+int MHgoParent(int index)
 {
 	return index / 2;
 }

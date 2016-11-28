@@ -4,19 +4,23 @@
 typedef int KeyType;
 typedef struct {
 	KeyType key;
-} element;
+} MHelement;
 typedef struct {
-	element heap[MAX_ELEMENT];
+	MHelement heap[MAX_ELEMENT];
 	int heap_size;
 }HeapType;
 
 typedef HeapType MaxHeap;
 MaxHeap* makeMaxHeap();
-void insertMaxHeap(MaxHeap *heap, element item);
-element deleteMaxHeap(MaxHeap *heap);
+void insertMaxHeap(MaxHeap *heap, MHelement item);
+void insertMaxHeapInt(MaxHeap *head, int data);
+MHelement deleteMaxHeap(MaxHeap *heap);
 KeyType searchMaxHeap(MaxHeap *head, KeyType key);
+void listMaxHeap(MaxHeap *head);
+void inorderPrint(MaxHeap *head, int current);
 
-int goLeft(int index);
-int goRight(int index);
-int goParent(int index);
+int MHgoLeft(int index);
+int MHgoRight(int index);
+int MHgoParent(int index);
+int isNull(MaxHeap *head, int current);
 #endif
