@@ -4,7 +4,7 @@
 #include "main.h"
 #include "MaxHeap.h"
 #include "binarySearchTree.h"
-
+#define INPUT_END -65535
 
 int main()
 {
@@ -90,37 +90,55 @@ void excuteCommand(char input[], char DStoUse[], void* createdDS)
 
 void selectInsert(char DStoUse[], void* createdDS)
 {
-	void(*insertFunc)(void*, int) = 0;
-	if (strncmp(DStoUse, "BST", sizeof("BST")) == 0) insertFunc = insertBTree;
-	if (strncmp(DStoUse, "MaxHeap", sizeof("MaxHeap")) == 0) insertFunc = insertMaxHeapInt;
-	insertCommand(createdDS, insertFunc);
+	int* ints;
+	int* current;
+	ints = getMultipleInt();
+	current = ints;
+	if (strncmp(DStoUse, "BST", sizeof("BST")) == 0)
+	{
+		while (*current != INPUT_END)
+			insertBTree(&((BTreeNode*)createdDS), *current);
+	}
+	if (strncmp(DStoUse, "MaxHeap", sizeof("MaxHeap")) == 0)
+	{
+		while (*current != INPUT_END)
+			insertMaxHeapInt((MaxHeap*)createdDS, *current);
+	}
 }
 void selectList(char DStoUse[], void* createdDS)
 {
-	void(*listFunc)(void*) = 0;
-	if (strncmp(DStoUse, "BST", sizeof("BST")) == 0) listFunc = printBTree;
-	if (strncmp(DStoUse, "MaxHeap", sizeof("MaxHeap")) == 0) listFunc = listMaxHeap;
-	listFunc(DStoUse);
+	if (strncmp(DStoUse, "BST", sizeof("BST")) == 0)
+		printBTree((BTree*) createdDS);
+	if (strncmp(DStoUse, "MaxHeap", sizeof("MaxHeap")) == 0)
+		listMaxHeap((MaxHeap*) createdDS);
 }
 void selectSearch(char DStoUse[], void* createdDS)
 {
-	void(*searchFunc)(void*, int) = 0;
-	if (strncmp(DStoUse, "BST", sizeof("BST")) == 0) searchFunc = searchBTree;
-	if (strncmp(DStoUse, "MaxHeap", sizeof("MaxHeap")) == 0) searchFunc = searchMaxHeap;
-	insertCommand(createdDS, searchFunc);
+	int* ints;
+	int* current;
+	ints = getMultipleInt();
+	current = ints;
+	if (strncmp(DStoUse, "BST", sizeof("BST")) == 0)
+	{
+		while (*current != INPUT_END)
+			searchBTree((BTreeNode*)createdDS, *current);
+	}
+	if (strncmp(DStoUse, "MaxHeap", sizeof("MaxHeap")) == 0)
+	{
+		while (*current != INPUT_END)
+			searchMaxHeap((MaxHeap*)createdDS, *current);
+	}
 }
 
-void insertBST(void* createdDS, int data) // int 임시 함수
-{
-	printf("%d\n", data);
-}
 
-int insertCommand(void* createdDS, void*(*insertFunc)(void*, int))
+int* getMultipleInt()
 {
 	char input[100];
 	char* splittedNumber;
 	char* left;
 	int in;
+	int* list = (int*)calloc(20,sizeof(int));
+	int index = 0;
 	while (1)
 	{
 		if (isInputEnd()) break;
@@ -131,11 +149,13 @@ int insertCommand(void* createdDS, void*(*insertFunc)(void*, int))
 		while (splittedNumber != NULL)
 		{
 			in = atoi(splittedNumber);
-			insertFunc(createdDS, in);
+			list[index] = in;
+			index++;
 			splittedNumber = strtok_s(NULL, ",", &left);
 		}
 	}
-	return 0;
+	list[index] = INPUT_END;
+	return list;
 }
 int isInputEnd()
 {
