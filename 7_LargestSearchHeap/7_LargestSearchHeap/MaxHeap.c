@@ -1,28 +1,33 @@
 #include "MaxHeap.h"
 #include <stdio.h>
 #include <stdlib.h>
+MHRefCount = 0;
 MaxHeap* makeMaxHeap()
 {
 	MaxHeap* toMake = (MaxHeap*)malloc(sizeof(MaxHeap));
+	int index;
 	toMake->heap_size = 0;
+	for (index = 0; index < MAX_ELEMENT; index++)
+	{
+		toMake->heap[index].key = 0;
+	}
 	return toMake;
 }
 void insertMaxHeap(MaxHeap *head, MHelement item)
 {
-	int i;
+	int i, parent;
 	i = ++(head->heap_size);
-	while ((i != 1) && (item.key > head->heap[i / 2].key))
+	parent = MHgoParent(i);
+	initMHRefCount();
+	while ((i != 1) && (item.key > MHgetKey(head,parent)))
 	{
-		head->heap[i] = head->heap[i / 2];
-		i /= 2;
+		head->heap[i] = head->heap[parent];
+		i = parent;
+		parent = MHgoParent(i);
 	}
 	head->heap[i] = item;
-}
-void insertMaxHeapInt(MaxHeap *head, int data)
-{
-	MHelement item;
-	item.key = data;
-	insertMaxHeap(head, item);
+	getMHRefCount("삽입");
+
 }
 MHelement deleteMaxHeap(MaxHeap *head)
 {
@@ -54,15 +59,13 @@ KeyType searchMaxHeap(MaxHeap *head, KeyType key)
 	{
 		left = MHgoLeft(current);
 		right = MHgoRight(current);
-		if (head->heap[left].key == 0 && head->heap[right].key == 0) // 단말 노드 도달
+		if (isNull(head,current)) // 단말 노드 도달
 		{
-			fprintf(stderr, "찾을 수 없음\n");
 			return -1;
 		}
 
 		if (head->heap[left].key < key && head->heap[right].key < key) // 키가 현재 노드값이 아니고 자식 노드들보다 클 경우 실패
 		{
-			fprintf(stderr, "찾을 수 없음\n");
 			return -1;
 		}
 		if (head->heap[left].key < key && head->heap[right].key >= key)
@@ -74,28 +77,47 @@ KeyType searchMaxHeap(MaxHeap *head, KeyType key)
 void listMaxHeap(MaxHeap *head)
 {
 	int rootIndex = 1;
-	inorderPrint(head, rootIndex);
+	postOrderPrint(head, rootIndex);
+	printf("\n");
 }
-void inorderPrint(MaxHeap *head, int current)
+void postOrderPrint(MaxHeap *head, int current)
 {
 	if (!isNull(head, current))
 	{
-		inorderPrint(head, MHgoLeft(current));
 		printf("%d ", head->heap[current].key);
-		inorderPrint(head, MHgoRight(current));
+		postOrderPrint(head, MHgoLeft(current));
+		postOrderPrint(head, MHgoRight(current));
 	}
+}
+void initMHRefCount()
+{
+	MHRefCount = 0;
+}
+
+int getMHRefCount(char* str)
+{
+	printf("%s 시 방문 횟수 : %d\n", str, MHRefCount);
+	return MHRefCount;
 }
 int MHgoLeft(int index)
 {
+	MHRefCount++;
 	return index * 2;
 }
 int MHgoRight(int index)
 {
+	MHRefCount++;
 	return (index * 2)+1;
 }
 int MHgoParent(int index)
 {
+	MHRefCount++;
 	return index / 2;
+}
+int MHgetKey(MaxHeap *head, int current)
+{
+	if (current == 1) MHRefCount++;
+	return head->heap[current].key;
 }
 int isNull(MaxHeap *head, int current)
 {

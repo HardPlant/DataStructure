@@ -28,9 +28,14 @@ void initBTreeRefCount()
 	BTreeRefCount = 0;
 }
 
-int getBTreeRefCount()
+int getBTreeRefCount(char* str)
 {
+	printf("%s 시 방문 횟수 : %d\n", str,BTreeRefCount);
 	return BTreeRefCount;
+}
+ElementType BTgetKey(BTreeNode* current)
+{
+	return current->key;
 }
 BTreeNode* BTgoLeft(BTreeNode* current)
 {
@@ -46,9 +51,9 @@ BTreeNode* searchBTree(BTreeNode *node, ElementType key)
 {
 	while (node != NULL)
 	{
-		if (key == node->key)
+		if (key == BTgetKey(node))
 			return node;
-		else if (key < node->key)
+		else if (key < BTgetKey(node))
 			node = BTgoLeft(node);
 		else
 			node = BTgoRight(node);
@@ -63,23 +68,27 @@ BTree* insertBTree(BTreeNode** root, ElementType key)
 	initBTreeRefCount();
 	temp = *root;
 	parent = NULL;
+	if (root == NULL)
+	{
+		return makeBTreeNode(key);
+	}
 	while (temp != NULL)
 	{
-		if (key == temp->key) // 이미 존재하면 추가하지 않고 그대로 반환.
+		if (key == BTgetKey(temp)) // 이미 존재하면 추가하지 않고 그대로 반환.
 			return *root;	  // 존재한다면 오른쪽 노드를 한번 타서 그대로 왼쪽이 NULL일 떄까지 들어가서 할당하면 될 듯함.
 		parent = temp;
-		if (key < parent->key)
+		if (key < BTgetKey(parent))
 			temp = BTgoLeft(parent);
 		else
 			temp = BTgoRight(parent);
 	}
 	toInsert = makeBTreeNode(key);
 	if (parent != NULL)
-		if (key < parent->key)
+		if (key < BTgetKey(parent))
 			parent->left = toInsert;
 		else parent->right = toInsert;
 	else *root = toInsert;
-	printf("삽입 시 방문 횟수 : %d\n", getBTreeRefCount());
+	getBTreeRefCount("삽입");
 	return *root; // root가 그대로거나 toInsert임.
 }
 BTreeNode* deleteBTree(BTreeNode **root, ElementType key)
@@ -87,10 +96,10 @@ BTreeNode* deleteBTree(BTreeNode **root, ElementType key)
 	BTreeNode *parent, *child, *successor, *succesorParent, *temp;
 	parent = NULL;
 	temp = *root;
-	while (temp != NULL && temp->key != key)
+	while (temp != NULL && BTgetKey(temp) != key)
 	{
 		parent = temp;
-		if (key < parent->key)
+		if (key < BTgetKey(parent))
 			temp = parent->left;
 		else
 			temp = parent->right;
@@ -133,7 +142,7 @@ BTreeNode* deleteBTree(BTreeNode **root, ElementType key)
 			succesorParent->left = successor->right;
 		else
 			succesorParent->right = successor->right;
-		temp->key = successor->key;
+		temp->key = BTgetKey(successor);
 		temp = successor;
 	}
 	free(temp);
@@ -142,20 +151,21 @@ BTreeNode* deleteBTree(BTreeNode **root, ElementType key)
 void printBTreeNode(BTreeNode* root)
 {
 	BTreeRefCount++;
-	printf("%d ", root->key);
+	printf("%d ", BTgetKey(root));
 }
 void printBTree(BTree* head)
 {
 	if (head == NULL)
 		return;
 	inorder(head, printBTreeNode);
+	printf("\n");
 }
 void inorder(BTreeNode* head, void(*func)(BTreeNode*))
 {
 	if (head != NULL)
 	{
-		inorder(head->left, func);
+		inorder(BTgoLeft(head), func);
 		func(head);
-		inorder(head->right, func);
+		inorder(BTgoRight(head), func);
 	}
 }

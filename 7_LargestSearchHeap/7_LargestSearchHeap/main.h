@@ -1,17 +1,16 @@
 #ifndef LARGETST_SEARCH_MAIN_H
 #define LARGETST_SEARCH_MAIN_H
+#include "MaxHeap.h"
+#include "binarySearchTree.h"
 
 void getDS(char DStoUse[]);
-void loopEntry(char DStoUse[]);
-void* allocateDS(char DStoUse[]);
+void BSTLoopEntry();
+void MaxHeapLoopEntry();
 int isAvailableDS(char DStoUse[]);
 int isCommand(char input[]);
 int isInputEnd();
-void excuteCommand(char input[], char DStoUse[], void* createdDS);
 int* getMultipleInt();
 
-void selectInsert(char DStoUse[], void* createdDS);
-void selectList(char DStoUse[], void* createdDS);
-void selectSearch(char DStoUse[], void* createdDS);
-
+void BTreeLargestSearch(BTree* head, ElementType item);
+void maxHeapLargestSearch(MaxHeap *head, KeyType key);
 #endif

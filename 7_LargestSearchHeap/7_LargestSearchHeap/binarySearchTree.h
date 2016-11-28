@@ -21,5 +21,6 @@ void printBTreeNode(BTreeNode* root);
 void printBTree(BTree* head);
 BTreeNode* BTgoLeft(BTreeNode* current);
 BTreeNode* BTgoRight(BTreeNode* current);
+ElementType BTgetKey(BTreeNode* current);
 void inorder(BTreeNode* head, void(*func)(BTreeNode*));
 #endif
