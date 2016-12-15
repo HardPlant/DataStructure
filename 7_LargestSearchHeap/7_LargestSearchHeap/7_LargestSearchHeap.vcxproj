@@ -149,6 +149,7 @@
     <ClCompile Include="binarySearchTree.c" />
     <ClCompile Include="MaxHeap.c" />
     <ClCompile Include="main.c" />
+    <ClCompile Include="testmain.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="binarySearchTree.h" />

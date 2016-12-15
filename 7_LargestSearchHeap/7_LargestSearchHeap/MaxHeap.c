@@ -30,6 +30,7 @@ void insertMaxHeap(MaxHeap *head, MHelement item)
 MHelement deleteMaxHeap(MaxHeap *head)
 {
 	int parent, leftChild,rightChild;
+	int leftKey, rightKey;
 	MHelement item, temp;
 	item = head->heap[1];
 	temp = head->heap[(head->heap_size)--];
@@ -38,21 +39,25 @@ MHelement deleteMaxHeap(MaxHeap *head)
 	rightChild = MHgoRight(parent);
 	while (leftChild <= head->heap_size)
 	{
+		leftKey = MHgetKey(head, leftChild);
+		rightKey = MHgetKey(head, rightChild);
 		if ((leftChild < head->heap_size))
 		{
-			if (MHgetKey(head,leftChild) >= MHgetKey(head,rightChild))
+			if ( leftKey>= rightKey)
 				head->heap[parent] = head->heap[leftChild];
-			else if (MHgetKey(head, leftChild) < MHgetKey(head, rightChild))
+			else if (leftKey < rightKey)
 				head->heap[parent] = head->heap[rightChild];
 		}
-		if (temp.key >= head->heap[leftChild].key)
+		if (temp.key >= head->heap[leftChild].key
+			&& temp.key >= head->heap[rightChild].key)
 			break;
-		parent = leftChild;
-		rightChild = MHgoRight(leftChild); 
-		leftChild = MHgoLeft(leftChild);
+		parent = leftKey > rightKey ? leftChild : rightChild;
+		rightChild = MHgoRight(parent); 
+		leftChild = MHgoLeft(parent);
 		
 	}
 	head->heap[parent] = temp;
+	head->heap[(head->heap_size)+1].key = 0;
 	return item;
 }
 int searchMaxHeap(MaxHeap *head, KeyType key)
