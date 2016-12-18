@@ -76,5 +76,15 @@ int dist[MAX_VERTICES];
 int get_min_vertex(int n);
 void prim(matGraph *graph);
 
+int distance[MAX_VERTICES];
+int found[MAX_VERTICES];
+int choose(int distance[], int n, int found[]);
+void shortest_path(matGraph* graph, int start);
+void print_adj(matGraph* graph);
+
+
+int A[MAX_VERTICES][MAX_VERTICES];
+void floyd(matGraph* graph);
+void topo_sort(listGraph *graph);
 
 #endif // ! GRAPH_H

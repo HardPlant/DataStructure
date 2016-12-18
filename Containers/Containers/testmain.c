@@ -150,6 +150,82 @@ static char * prim01()
 	printf("\n");
 	return 0;
 }
+static char * dijkstra01()
+{
+	matGraph graph;
+	matGraph_init(&graph);
+	matGraph_insert_vertex(&graph, 0);
+	matGraph_insert_vertex(&graph, 1);
+	matGraph_insert_vertex(&graph, 2);
+	matGraph_insert_vertex(&graph, 3);
+	matGraph_insert_vertex(&graph, 4);
+	matGraph_insert_vertex(&graph, 5);
+	matGraph_insert_vertex(&graph, 6);
+	matGraph_insert_weightedEdge(&graph, 0, 1, 7);
+	matGraph_insert_weightedEdge(&graph, 0, 2, 29);
+	matGraph_insert_weightedEdge(&graph, 1, 2, 16);
+	matGraph_insert_weightedEdge(&graph, 2, 3, 12);
+	matGraph_insert_weightedEdge(&graph, 3, 4, 22);
+	matGraph_insert_weightedEdge(&graph, 4, 5, 27);
+	matGraph_insert_weightedEdge(&graph, 5, 0, 10);
+	matGraph_insert_weightedEdge(&graph, 6, 1, 15);
+	matGraph_insert_weightedEdge(&graph, 6, 3, 18);
+	matGraph_insert_weightedEdge(&graph, 6, 4, 25);
+	printf("\ndijkstra : \n");
+	shortest_path(&graph, 0);
+	printf("\n");
+	return 0;
+}
+static char * floyd01()
+{
+	matGraph graph;
+	matGraph_init(&graph);
+	matGraph_insert_vertex(&graph, 0);
+	matGraph_insert_vertex(&graph, 1);
+	matGraph_insert_vertex(&graph, 2);
+	matGraph_insert_vertex(&graph, 3);
+	matGraph_insert_vertex(&graph, 4);
+	matGraph_insert_vertex(&graph, 5);
+	matGraph_insert_vertex(&graph, 6);
+	matGraph_insert_weightedEdge(&graph, 0, 1, 7);
+	matGraph_insert_weightedEdge(&graph, 0, 2, 29);
+	matGraph_insert_weightedEdge(&graph, 1, 2, 16);
+	matGraph_insert_weightedEdge(&graph, 2, 3, 12);
+	matGraph_insert_weightedEdge(&graph, 3, 4, 22);
+	matGraph_insert_weightedEdge(&graph, 4, 5, 27);
+	matGraph_insert_weightedEdge(&graph, 5, 0, 10);
+	matGraph_insert_weightedEdge(&graph, 6, 1, 15);
+	matGraph_insert_weightedEdge(&graph, 6, 3, 18);
+	matGraph_insert_weightedEdge(&graph, 6, 4, 25);
+	printf("\nployd : \n");
+	floyd(&graph);
+	printf("\n");
+	return 0;
+}
+static char * tsort01()
+{
+	listGraph graph;
+	listGraph_init(&graph);
+	listGraph_insert_vertex(&graph, 0);
+	listGraph_insert_vertex(&graph, 1);
+	listGraph_insert_vertex(&graph, 2);
+	listGraph_insert_vertex(&graph, 3);
+	listGraph_insert_vertex(&graph, 4);
+	listGraph_insert_vertex(&graph, 5);
+	listGraph_insert_edge(&graph, 0, 2);
+	listGraph_insert_edge(&graph, 0, 3);
+	listGraph_insert_edge(&graph, 1, 3);
+	listGraph_insert_edge(&graph, 1, 4);
+	listGraph_insert_edge(&graph, 2, 3);
+	listGraph_insert_edge(&graph, 2, 5);
+	listGraph_insert_edge(&graph, 3, 5);
+	listGraph_insert_edge(&graph, 4, 5);
+
+	printf("\n");
+	topo_sort(&graph);
+	printf("\n");
+	return 0;
+}
 static char * all_tests() {
 	_run_test(createQueue01);
 	_run_test(createGraph01);
@@ -157,6 +233,9 @@ static char * all_tests() {
 	_run_test(createMinHeap01);
 	_run_test(kruskal01);
 	_run_test(prim01);
+	_run_test(dijkstra01);
+	_run_test(floyd01);
+	_run_test(tsort01);
 	return 0;
 }
 

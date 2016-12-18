@@ -1,5 +1,6 @@
 #include "graph.h"
 #include "queue.h"
+#include "stack.h"
 #include <stdlib.h>
 void matGraph_init(matGraph *g)
 {
@@ -7,7 +8,10 @@ void matGraph_init(matGraph *g)
 	g->n = 0;
 	for (r = 0; r < MAX_VERTICES; r++)
 		for (c = 0; c < MAX_VERTICES; c++)
-			g->adj_mat[r][c] = INT_MAX;
+			if(r==c)
+				g->adj_mat[r][c] = 0;
+			else
+				g->adj_mat[r][c] = INT_MAX / 4;
 }
 void matGraph_insert_vertex(matGraph *g, int v)
 {
@@ -350,4 +354,128 @@ void prim(matGraph *graph)
 					dist[v] = graph->adj_mat[u][v]; // dist[0]은 정점 번호, 
 //		prim_getDist(dist, n);
 	}
+}
+
+
+int choose(int distance[], int n, int found[])
+{
+	int i, min, minpos;
+	min = INT_MAX;
+	minpos = -1;
+	for(i=0;i<n;i++)
+		if (distance[i] < min && !found[i])
+		{
+			min = distance[i];
+			minpos = i;
+		}
+	return minpos;
+}
+void shortest_path(matGraph* graph, int start)
+{
+	int n = graph->n;
+	int i, u, w;
+	for (i = 0; i < n; i++)
+	{
+		distance[i] = graph->adj_mat[start][i];
+		found[i] = FALSE;
+	}
+	found[start] = TRUE;
+	distance[start] = 0;
+	for (i = 0; i < n - 1; i++)
+	{
+		u = choose(distance, n, found);
+		found[u] = TRUE;
+		for (w = 0; w < n; w++)
+			if (!found[w])
+				if (distance[u] + graph->adj_mat[u][w] < distance[w])
+					distance[w] = distance[u] + graph->adj_mat[u][w];
+	}
+	for (i = 0; i < n; i++)
+	{
+		printf("%d:%d\n", i, distance[i]);
+	}
+	printf("\n");
+}
+
+
+void print_adj(matGraph* graph)
+{
+	const int row = graph->n;
+	const int col = graph->n;
+	printf("\n");
+	for (int i = 0; i <= row; i++)
+	{
+		for (int j = 0; j <= col; j++)
+		{
+			if (graph->adj_mat[i][j] == INT_MAX / 4)
+				printf("%4s", "-");
+			else
+				printf("%4d", graph->adj_mat[i][j]);
+		}
+		printf("\n");
+	}
+}
+int A[MAX_VERTICES][MAX_VERTICES];
+void floyd(matGraph* graph)
+{
+	int i, j, k;
+	int n = graph->n;
+	for (i = 0; i < n; i++)
+		for (j = 0; j < n; j++)
+			A[i][j] = graph->adj_mat[i][j]; // weight 복사
+	for (k = 0; k < n; k++)
+		for (i = 0; i < n; i++)
+			for (j = 0; j < n; j++)
+				if (A[i][k] + A[k][j] < A[i][j])
+					A[i][j] = A[i][k] + A[k][j];
+
+	for (i = 0; i < n; i++)
+	{
+		for (j = 0; j < n; j++)
+			printf("%4d", A[i][j]);
+		printf("\n");
+	}
+}
+
+void topo_sort(listGraph *graph)
+{
+	int i;
+	Stack s;
+	GraphNode *node;
+
+	int *in_degree = (int*)malloc(graph->n * sizeof(int));
+	for (i = 0; i < graph->n; i++)
+		in_degree[i] = 0;
+	for (i = 0; i < graph->n; i++)
+	{
+		GraphNode *node = graph->adj_list[i];
+		while (node != NULL)
+		{
+			in_degree[node->vertex]++;
+			node = node->link;
+		}
+	}
+
+	stack_init(&s);
+	for (i = 0; i < graph->n; i++)
+	{
+		if (in_degree[i] == 0)
+			stack_push(&s, i);
+	}
+	while (!stack_is_empty(&s))
+	{
+		int w;
+		w = stack_pop(&s);
+		printf("%d ", w);
+		node = graph->adj_list[w];
+		while (node != NULL)
+		{
+			int u = node->vertex;
+			in_degree[u]--;
+			if (in_degree[u] == 0)
+				stack_push(&s, u);
+			node = node->link;
+		}
+	}
+	free(in_degree);
 }
