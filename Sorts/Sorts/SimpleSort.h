@@ -1,4 +1,5 @@
 #pragma once
+#include <stdio.h>
 void selectSort(int list[], int length);
 void insertSort(int list[], int length);
 void bubbleSort(int list[], int length);

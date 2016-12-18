@@ -146,13 +146,20 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="ComplexSort.cpp" />
-    <ClCompile Include="SimpleSort.cpp" />
-    <ClCompile Include="testmain.cpp" />
+    <ClCompile Include="..\..\Containers\Containers\heap.c" />
+    <ClCompile Include="ComplexSort.c" />
+    <ClCompile Include="SimpleSort.c" />
+    <ClCompile Include="testmain.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Containers\Containers\heap.h" />
     <ClInclude Include="ComplexSort.h" />
     <ClInclude Include="SimpleSort.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Containers\Containers\Containers.vcxproj">
+      <Project>{fc171292-bebe-40a8-be2b-30d5abdb2327}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

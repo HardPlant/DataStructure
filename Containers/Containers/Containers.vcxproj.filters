@@ -50,10 +50,10 @@
     <ClInclude Include="graph.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="heap.h">
+    <ClInclude Include="stack.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="stack.h">
+    <ClInclude Include="heap.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>

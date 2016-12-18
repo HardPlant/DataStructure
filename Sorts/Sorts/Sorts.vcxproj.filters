@@ -15,13 +15,16 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ComplexSort.cpp">
+    <ClCompile Include="SimpleSort.c">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="testmain.cpp">
+    <ClCompile Include="testmain.c">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="SimpleSort.cpp">
+    <ClCompile Include="ComplexSort.c">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Containers\Containers\heap.c">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
@@ -30,6 +33,9 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="ComplexSort.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Containers\Containers\heap.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>

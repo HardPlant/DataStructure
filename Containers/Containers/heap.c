@@ -52,3 +52,19 @@ MinHeap_element minHeap_delete_min_heap(minHeap *h)
 	h->heap[parent] = temp;
 	return item;
 }
+void _minHeap_list(minHeap *h, int index)
+{
+	if ((h->heap[index].key >0))
+	{
+		printf("%d ", h->heap[index].key);
+		_minHeap_list(h, index * 2);
+		_minHeap_list(h, index * 2 + 1);
+	}
+	else
+		printf("- ", h->heap[index].key);
+}
+void minHeap_list(minHeap *h)
+{
+	_minHeap_list(h, 1);
+	printf("\n");
+}

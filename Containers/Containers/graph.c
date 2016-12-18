@@ -277,6 +277,19 @@ void insert_all_edges(Kruskal_GraphHeap *h, matGraph *target)
 				insert_heap_edge(h, i, j, target->adj_mat[i][j]);
 		}
 }
+void printArray(int arr[], int size)
+{
+	for (int i = 0; i < size; i++)
+	{
+		if (arr[i] == INT_MAX)
+			printf("MAX ");
+		else if (arr[i] == INT_MAX / 4)
+			printf("INF ");
+		else
+			printf("%3d ", arr[i]);
+	}
+	printf("\n");
+}
 void kruskal(matGraph *target)
 {
 	int edge_accepted = 0;
@@ -294,6 +307,10 @@ void kruskal(matGraph *target)
 		e = KruskalHeap_delete_min_heap(&h);
 		uset = set_find(e.u);
 		vset = set_find(e.v);
+		printf("parent: ");
+		printArray(parent, target->n);
+		printf("num   : ");
+		printArray(num, target->n);
 		if (uset != vset)
 		{
 			printf("(%d,%d) %d \n", e.u, e.v, e.key);
@@ -351,7 +368,12 @@ void prim(matGraph *graph)
 		for (v = 0; v < n; v++)
 			if (graph->adj_mat[u][v] != INT_MAX)
 				if (!selected[v] && graph->adj_mat[u][v] < dist[v])
-					dist[v] = graph->adj_mat[u][v]; // dist[0]은 정점 번호, 
+				{
+					
+					dist[v] = graph->adj_mat[u][v];
+					printf("dist: ");
+					printArray(dist, graph->n);
+				}// dist[0]은 정점 번호, 
 //		prim_getDist(dist, n);
 	}
 }
@@ -381,6 +403,9 @@ void shortest_path(matGraph* graph, int start)
 	}
 	found[start] = TRUE;
 	distance[start] = 0;
+	printf("First:\n");
+	printArray(distance, graph->n);
+	printf("First:\n");
 	for (i = 0; i < n - 1; i++)
 	{
 		u = choose(distance, n, found);
@@ -388,7 +413,10 @@ void shortest_path(matGraph* graph, int start)
 		for (w = 0; w < n; w++)
 			if (!found[w])
 				if (distance[u] + graph->adj_mat[u][w] < distance[w])
+				{
 					distance[w] = distance[u] + graph->adj_mat[u][w];
+					printArray(distance, graph->n);
+				}
 	}
 	for (i = 0; i < n; i++)
 	{

@@ -23,5 +23,6 @@ void minHeap_insert_min_heap(minHeap *h, MinHeap_element item);
 MinHeap_element minHeap_delete_min_heap(minHeap *h);
 
 MinHeap_element Heap_makeItem(int key);
-
+void minHeap_list(minHeap *h);
+void _minHeap_list(minHeap *h, int index);
 #endif // ! HEAP_H

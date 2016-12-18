@@ -59,9 +59,9 @@ static char * heapSortTest()
 	return 0;
 }
 
-static char * all_tests() {
+static char * all_tests() {/*
 	mu_run_test(simpleSortTest);
-	mu_run_test(insertSortTest);/*
+	mu_run_test(insertSortTest);
 	mu_run_test(quickSortTest);*/
 	mu_run_test(heapSortTest);
 	return 0;

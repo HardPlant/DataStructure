@@ -226,7 +226,97 @@ static char * tsort01()
 	printf("\n");
 	return 0;
 }
-static char * all_tests() {
+static char * kruskal02()
+{
+	matGraph graph;
+	matGraph_init(&graph);
+	matGraph_insert_vertex(&graph, 0);
+	matGraph_insert_vertex(&graph, 1);
+	matGraph_insert_vertex(&graph, 2);
+	matGraph_insert_vertex(&graph, 3);
+	matGraph_insert_vertex(&graph, 4);
+	matGraph_insert_vertex(&graph, 5);
+	matGraph_insert_vertex(&graph, 6);
+	matGraph_insert_vertex(&graph, 7);
+	matGraph_insert_weightedEdge(&graph, 0, 7, 1);
+	matGraph_insert_weightedEdge(&graph, 1, 5, 2);
+	matGraph_insert_weightedEdge(&graph, 7, 3, 3);
+	matGraph_insert_weightedEdge(&graph, 1, 2, 4);
+	matGraph_insert_weightedEdge(&graph, 4, 5, 5);
+	matGraph_insert_weightedEdge(&graph, 0, 3, 6);
+	matGraph_insert_weightedEdge(&graph, 2, 5, 7);
+	matGraph_insert_weightedEdge(&graph, 7, 4, 8);
+	matGraph_insert_weightedEdge(&graph, 5, 6, 9);
+	matGraph_insert_weightedEdge(&graph, 1, 0, 10);
+	matGraph_insert_weightedEdge(&graph, 2, 3, 11);
+	matGraph_insert_weightedEdge(&graph, 6, 7, 12);
+	printf("\kruskal : \n");
+
+	kruskal(&graph);
+	return 0;
+}
+static char * prim02()
+{
+	matGraph graph;
+	matGraph_init(&graph);
+	matGraph_insert_vertex(&graph, 0);
+	matGraph_insert_vertex(&graph, 1);
+	matGraph_insert_vertex(&graph, 2);
+	matGraph_insert_vertex(&graph, 3);
+	matGraph_insert_vertex(&graph, 4);
+	matGraph_insert_vertex(&graph, 5);
+	matGraph_insert_vertex(&graph, 6);
+	matGraph_insert_vertex(&graph, 7);
+	matGraph_insert_weightedEdge(&graph, 0, 7, 1);
+	matGraph_insert_weightedEdge(&graph, 1, 5, 2);
+	matGraph_insert_weightedEdge(&graph, 7, 3, 3);
+	matGraph_insert_weightedEdge(&graph, 1, 2, 4);
+	matGraph_insert_weightedEdge(&graph, 4, 5, 5);
+	matGraph_insert_weightedEdge(&graph, 0, 3, 6);
+	matGraph_insert_weightedEdge(&graph, 2, 5, 7);
+	matGraph_insert_weightedEdge(&graph, 7, 4, 8);
+	matGraph_insert_weightedEdge(&graph, 5, 6, 9);
+	matGraph_insert_weightedEdge(&graph, 1, 0, 10);
+	matGraph_insert_weightedEdge(&graph, 2, 3, 11);
+	matGraph_insert_weightedEdge(&graph, 6, 7, 12);
+	printf("\prim : \n");
+
+	prim(&graph);
+	return 0;
+}
+
+static char * dijkstra02()
+{
+	matGraph graph;
+	matGraph_init(&graph);
+	matGraph_insert_vertex(&graph, 0);
+	matGraph_insert_vertex(&graph, 1);
+	matGraph_insert_vertex(&graph, 2);
+	matGraph_insert_vertex(&graph, 3);
+	matGraph_insert_vertex(&graph, 4);
+	matGraph_insert_vertex(&graph, 5);
+	matGraph_insert_vertex(&graph, 6);
+	matGraph_insert_vertex(&graph, 7);
+	matGraph_insert_weightedEdge(&graph, 0, 1, 7);
+	matGraph_insert_weightedEdge(&graph, 0, 2, 5);
+	matGraph_insert_weightedEdge(&graph, 0, 5, 2);
+	matGraph_insert_weightedEdge(&graph, 1, 3, 6);
+	matGraph_insert_weightedEdge(&graph, 1, 4, 2);
+	matGraph_insert_weightedEdge(&graph, 1, 7, 1);
+	matGraph_insert_weightedEdge(&graph, 2, 3, 2);
+	matGraph_insert_weightedEdge(&graph, 2, 5, 5);
+	matGraph_insert_weightedEdge(&graph, 3, 6, 2);
+	matGraph_insert_weightedEdge(&graph, 3, 7, 8);
+	matGraph_insert_weightedEdge(&graph, 4, 5, 2);
+	matGraph_insert_weightedEdge(&graph, 4, 7, 4);
+	matGraph_insert_weightedEdge(&graph, 5, 6, 4);
+	matGraph_insert_weightedEdge(&graph, 6, 7, 4);
+	printf("\ndijkstra : \n");
+	shortest_path(&graph, 0);
+	printf("\n");
+	return 0;
+}
+static char * all_tests() {/*
 	_run_test(createQueue01);
 	_run_test(createGraph01);
 	_run_test(GraphConnected01);
@@ -235,7 +325,10 @@ static char * all_tests() {
 	_run_test(prim01);
 	_run_test(dijkstra01);
 	_run_test(floyd01);
-	_run_test(tsort01);
+	_run_test(tsort01);*/
+	_run_test(kruskal02);/*
+	_run_test(prim02);
+	_run_test(dijkstra02);*/
 	return 0;
 }
 

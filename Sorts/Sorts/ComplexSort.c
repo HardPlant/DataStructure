@@ -1,7 +1,5 @@
 #include "ComplexSort.h"
-#include <iostream>
-#include <queue>
-#include <functional>
+#include "../../Containers/Containers/heap.h"
 #define SWAP(x,y,tmp) ( (tmp)=(x),(x)=(y),(y)=(tmp) )
 int partition(int list[], int leftIndex, int rightIndex)
 {
@@ -16,12 +14,17 @@ int partition(int list[], int leftIndex, int rightIndex)
 		do lowIndex++; while (lowIndex <= rightIndex && list[lowIndex] < pivot);
 		do highIndex--; while (highIndex >= leftIndex && list[highIndex] > pivot);
 
-		if (lowIndex < highIndex) SWAP(list[lowIndex],list[highIndex], temp);
+		if (lowIndex < highIndex)
+		{
+			SWAP(list[lowIndex], list[highIndex], temp);
+			for (int i = 0; i < 9; i++)
+				printf("%d ", list[i]);
+			printf("\n");
+		}
 
 	} while (lowIndex < highIndex);
 
 	SWAP(list[leftIndex], list[highIndex], temp);
-	printf("After: high = %d\n",highIndex);
 	for (int i = 0; i < 9; i++)
 		printf("%d ", list[i]);
 	printf("\n");
@@ -40,33 +43,21 @@ void quickSort(int list[], int length)
 {
 	_quickSort(list, 0, length - 1);
 }
-using namespace std;
-void heap_view(priority_queue<int, vector<int>, greater<int>> queue)
-{
-	while (!queue.empty())
-	{
-		cout << queue.top() << " ";
-		queue.pop();
-	}
-	cout << endl;
-}
+
 void heapSort(int list[], int length)
 {
-	using namespace std;
+	minHeap heap;
+	minHeap_init(&heap);
+	for (int i = 0; i < length; i++)
+	{
+		minHeap_insert_min_heap(&heap, (MinHeap_element) { list[i] });
+		minHeap_list(&heap);
+	}
+	for (int i = 0; i < length; i++)
+	{
+		list[i] = minHeap_delete_min_heap(&heap).key;
+		minHeap_list(&heap);
+	}
 
-	priority_queue<int,vector<int>,greater<int>> heap;
-	
-	int i = 0;
-	for (i = 0; i < length; i++)
-	{
-		heap.emplace(list[i]);
-		heap_view(heap);
-	}
-	printf("-----------\n");
-	for (i = 0; i < length; i++)
-	{
-		list[i] = heap.top();
-		heap.pop();
-		heap_view(heap);
-	}
+
 }
