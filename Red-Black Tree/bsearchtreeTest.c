@@ -10,7 +10,6 @@ int compileTest(){
 }
 
 int makeNodeTest(){
-    printf("[*] makeNodeTest:");
     int data[2] = {1,0};
     _BTreeNode* Node = makeNode(0, data, sizeof(data));
     _assert(Node);
@@ -40,7 +39,6 @@ int makeNodeTest(){
     return 0;
 }
 int makeTreeTest(){
-    printf("[*] TreeTest:");
     BTREE Tree = makeTree();
     int* testdata;
     int data[1] = {1};
@@ -63,11 +61,61 @@ int makeTreeTest(){
     free(Tree);
     return 0;
 }
+int insertTree321(){
+    BTREE Tree = makeTree();
+    int* testdata;
+    int data[1] = {3};
+    int data2[1] = {2};
+    int data3[1] = {1};
+    _assert(Tree);
+    _assert(Tree->data == NULL);
+    _assert(BTREE_insert(Tree, data, sizeof(data)));
+    _assert(BTREE_insert(Tree, data2, sizeof(data)));
+    _assert(BTREE_insert(Tree, data3, sizeof(data)));
+
+    _assert(Tree->data != NULL);
+    _assert(Tree->right != NULL);
+    _assert(Tree->left != NULL);
+
+    testdata = Tree->left->data;
+    _assert(testdata[0] == 1);
+    testdata = Tree->data;
+    _assert(testdata[0] == 2);
+    testdata = Tree->right->data;
+    _assert(testdata[0] == 3);
+    free(Tree);
+    return 0;
+}
+int insertTree417(){
+    BTREE Tree = makeTree();
+    int* testdata;
+    int data[1] = {4};
+    int data2[1] = {1};
+    int data3[1] = {7};
+    _assert(Tree);
+    _assert(Tree->data == NULL);
+    _assert(BTREE_insert(Tree, data, sizeof(data)));
+    _assert(BTREE_insert(Tree, data2, sizeof(data)));
+    _assert(BTREE_insert(Tree, data3, sizeof(data)));
+
+    _assert(Tree->data != NULL);
+    _assert(Tree->right != NULL);
+    _assert(Tree->left != NULL);
+
+    testdata = Tree->left->data;
+    _assert(testdata[0] == 1);
+    testdata = Tree->data;
+    _assert(testdata[0] == 4);
+    testdata = Tree->right->data;
+    _assert(testdata[0] == 7);
+    free(Tree);
+    return 0;
+}
 
 int all_tests() {
 	_verify(compileTest);
 	_verify(makeNodeTest);
-	_verify(makeTreeTest);
+	_verify(insertTree321);
 	return 0;
 }
 
