@@ -4,7 +4,7 @@
 #include <stddef.h>
 
 typedef int KeyType;
-typedef int DataType;
+typedef void* DataType;
 typedef int BOOL;
 
 typedef struct treenode{
@@ -12,11 +12,12 @@ typedef struct treenode{
     DataType data;
     struct node* left;
     struct node* right;
-    size_t DataSize;
+    size_t dataSize;
 }_BTreeNode;
 
 typedef _BTreeNode* BTREE;
 
+_BTreeNode* makeNode(KeyType key, DataType data, size_t size);
 
 BTREE makeTree();
 BOOL BTREE_insert(BTREE tree, DataType target);
@@ -29,5 +30,3 @@ DataType BTREE_getMax(BTREE tree);
 DataType _getLeft(_BTreeNode node);
 DataType _getRight(_BTreeNode node);
 
-_BTreeNode* makeNode();
-BTREE makeBST();
