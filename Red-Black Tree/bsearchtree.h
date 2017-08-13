@@ -1,10 +1,10 @@
 #pragma once
 
-typedef KeyType int
-typedef DataType int
-typedef BOOL int
+typedef int KeyType;
+typedef int DataType;
+typedef int BOOL;
 
-typedef treenode{
+typedef struct treenode{
     KeyType key;
     DataType data;
     struct node* left;
@@ -12,7 +12,7 @@ typedef treenode{
     size_t DataSize;
 }Node;
 
-typedef BTREE Node*;
+typedef Node* BTREE;
 
 
 BOOL BTREE_insert(BTREE tree, DataType target);
