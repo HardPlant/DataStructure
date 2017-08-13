@@ -10,9 +10,9 @@ typedef struct treenode{
     struct node* left;
     struct node* right;
     size_t DataSize;
-}Node;
+}_BTreeNode;
 
-typedef Node* BTREE;
+typedef _BTreeNode* BTREE;
 
 
 BOOL BTREE_insert(BTREE tree, DataType target);
@@ -22,5 +22,8 @@ DataType BTREE_search(BTREE tree, KeyType key);
 DataType BTREE_getMin(BTREE tree);
 DataType BTREE_getMax(BTREE tree);
 
-DataType _getLeft(Node node);
-DataType _getRight(Node node);
+DataType _getLeft(_BTreeNode node);
+DataType _getRight(_BTreeNode node);
+
+_BTreeNode* makeNode(void);
+BTREE makeBST();
