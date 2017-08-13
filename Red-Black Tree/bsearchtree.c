@@ -10,10 +10,11 @@ _BTreeNode* makeNode(KeyType key, DataType data, size_t size){
     node->dataSize = size;
     return node;
 }
+
 BTREE makeTree(){
     return makeNode(0, NULL, 0);
 }
-BOOL BTREE_insert(BTREE tree, DataType target){
+BOOL BTREE_insert(BTREE tree, DataType target, size_t size){
     if(tree->left == NULL && tree->right == NULL){
         return 1;
     }
