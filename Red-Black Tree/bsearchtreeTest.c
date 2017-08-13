@@ -10,7 +10,7 @@ int compileTest(){
 }
 
 int makeNodeTest(){
-    int data = [1,0];
+    int data[2] = {1,0};
     _BTreeNode* Node = makeNode(&data, sizeof(data));
     _assert(Node);
     free(Node);
