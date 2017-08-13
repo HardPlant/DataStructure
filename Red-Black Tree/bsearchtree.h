@@ -1,4 +1,7 @@
 #pragma once
+#include <stdio.h>
+#include <stdlib.h>
+#include <stddef.h>
 
 typedef int KeyType;
 typedef int DataType;
@@ -25,5 +28,5 @@ DataType BTREE_getMax(BTREE tree);
 DataType _getLeft(_BTreeNode node);
 DataType _getRight(_BTreeNode node);
 
-_BTreeNode* makeNode(void);
+_BTreeNode* makeNode();
 BTREE makeBST();

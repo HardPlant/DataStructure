@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include "testframework.h"
 #include "bsearchtree.h"
 
@@ -10,7 +11,8 @@ int compileTest(){
 
 int makeNodeTest(){
     _BTreeNode* Node = makeNode();
-    _assert(TRUE);
+    _assert(Node);
+    free(Node);
     return 0;
 }
 int makeTreeTest(){
@@ -20,6 +22,7 @@ int makeTreeTest(){
 
 int all_tests() {
 	_verify(compileTest);
+	_verify(makeNodeTest);
 	return 0;
 }
 
