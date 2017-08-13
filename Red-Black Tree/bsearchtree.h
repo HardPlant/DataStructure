@@ -20,7 +20,6 @@ typedef _BTreeNode* BTREE;
 
 BTREE makeTree();
 BOOL BTREE_insert(BTREE tree, DataType target);
-BOOL BTREE_insert(BTREE tree, DataType target);
 DataType BTREE_deleteKey(BTREE tree, KeyType target);
 DataType BTREE_deleteData(BTREE tree, DataType target);
 DataType BTREE_search(BTREE tree, KeyType key);

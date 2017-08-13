@@ -6,7 +6,7 @@
 #define FALSE 0
 
 #include <stdio.h>
-
+int all_tests();
 int tests_run = 0;
 /*
 int USL_FirstSearch_01()

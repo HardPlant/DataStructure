@@ -18,8 +18,9 @@ int makeNodeTest(){
 int makeTreeTest(){
     BTREE Tree = makeTree();
     _assert(Tree);
+    _assert(BTREE_insert(Tree, 1));
 
-    
+    free(Tree);
     return 0;
 }
 
