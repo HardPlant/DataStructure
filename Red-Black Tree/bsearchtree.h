@@ -18,7 +18,7 @@ typedef struct treenode{
 typedef _BTreeNode* BTREE;
 
 
-BOOL BTREE makeTree();
+BTREE makeTree();
 BOOL BTREE_insert(BTREE tree, DataType target);
 BOOL BTREE_insert(BTREE tree, DataType target);
 DataType BTREE_deleteKey(BTREE tree, KeyType target);
