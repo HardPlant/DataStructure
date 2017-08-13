@@ -66,13 +66,15 @@ BOOL BTREE_insert(BTREE tree, DataType target, size_t size){
     else{// tree->left || tree->right
         _BTreeNode* node = makeNode(target[0], target, size);
         if(tree->left != NULL) tree->right = node;
-        if(tree->right != NULL) tree->left = node;
+        else if(tree->right != NULL) tree->left = node;
         checkAndExchange(&(tree->left),&(tree->right),node_isLE);
         return 1;
     }
     return 0;
 }
-DataType BTREE_deleteKey(BTREE tree, KeyType target);
+DataType BTREE_deleteKey(BTREE tree, KeyType target){
+    
+}
 DataType BTREE_deleteData(BTREE tree, DataType target);
 DataType BTREE_search(BTREE tree, KeyType key);
 DataType BTREE_getMin(BTREE tree);
