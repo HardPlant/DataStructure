@@ -24,10 +24,34 @@ BOOL BTREE_insert(BTREE tree, DataType target, size_t size){
         return 1;
     }
     if(tree->left == NULL && tree->right == NULL){
-        tree->left = makeNode(target[0], target, size);
-        checkAndExchange(tree->data,tree->left->data);
-        return 1;
+        _BTreeNode* node = makeNode(target[0], target, size);
+        if(tree->data[0] > node->data[0]){
+            tree->left = node;
+            return 1;
+        }
+        if(tree->data[0] <= node->data[0]){
+            tree->right = node;
+            return 1;
+        }
     }
+    if(tree->left != NULL && tree->right != NULL){
+        if(tree->data[0] > target[0]){
+            return BTREE_insert(tree->left, target, size);
+        }
+        if(tree->data[0] <= target[0]){
+            return BTREE_insert(tree->right, target, size);
+        }
+    }
+    else{// tree->left || tree->right
+        _BTreeNode* node = makeNode(target[0], target, size);
+        if(tree->left != NULL) tree->right = node;
+        if(tree->right != NULL) tree->left = node;
+        checkAndExchange(tree->left,tree->right);
+    }
+    return 0;
+}
+BOOL _parentedInsert(){
+
 }
 void node_swap(_BTreeNode** dst, _BTreeNode** src){
     _BTreeNode* tmp = *dst;

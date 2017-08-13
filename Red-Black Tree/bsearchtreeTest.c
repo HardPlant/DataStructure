@@ -56,6 +56,10 @@ int makeTreeTest(){
     testdata = Tree->left->data;
     _assert(testdata[0] == 0);
 
+    _assert(BTREE_insert(Tree, data3, sizeof(data)));
+    _assert(Tree->right != NULL);
+    testdata = Tree->right->data;
+    _assert(testdata[0] == 2);
     free(Tree);
     return 0;
 }
