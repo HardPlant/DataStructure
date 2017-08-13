@@ -40,10 +40,21 @@ int makeNodeTest(){
 }
 int makeTreeTest(){
     BTREE Tree = makeTree();
-
+    int* testdata;
+    int data[1] = {1};
+    int data2[1] = {0};
+    int data3[1] = {2};
     _assert(Tree);
-    _assert(BTREE_insert(Tree, 1));
-
+    _assert(Tree->data == NULL);
+    _assert(BTREE_insert(Tree, data, sizeof(data)));
+    _assert(Tree->data != NULL);
+    testdata = Tree->data;
+    _assert(testdata[0] == 1);
+    
+    _assert(BTREE_insert(Tree, data2, sizeof(data)));
+    _assert(Tree->left != NULL);
+    testdata = Tree->left->data;
+    _assert(testdata[0] == 0);
 
     free(Tree);
     return 0;
@@ -52,6 +63,7 @@ int makeTreeTest(){
 int all_tests() {
 	_verify(compileTest);
 	_verify(makeNodeTest);
+	_verify(makeTreeTest);
 	return 0;
 }
 

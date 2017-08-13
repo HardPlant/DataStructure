@@ -16,8 +16,10 @@ BTREE makeTree(){
 }
 BOOL BTREE_insert(BTREE tree, DataType target, size_t size){
     if(tree->left == NULL && tree->right == NULL){
+        tree->data = target;
         return 1;
     }
+    
 }
 DataType BTREE_deleteKey(BTREE tree, KeyType target);
 DataType BTREE_deleteData(BTREE tree, DataType target);
