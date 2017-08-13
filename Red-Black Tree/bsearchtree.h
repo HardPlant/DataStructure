@@ -4,14 +4,14 @@
 #include <stddef.h>
 
 typedef int KeyType;
-typedef void* DataType;
+typedef int* DataType;
 typedef int BOOL;
 
 typedef struct treenode{
     KeyType key;
     DataType data;
-    struct node* left;
-    struct node* right;
+    struct treenode* left;
+    struct treenode* right;
     size_t dataSize;
 }_BTreeNode;
 
