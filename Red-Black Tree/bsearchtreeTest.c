@@ -11,8 +11,12 @@ int compileTest(){
 
 int makeNodeTest(){
     int data[2] = {1,0};
-    _BTreeNode* Node = makeNode(0, &data, sizeof(data));
+    _BTreeNode* Node = makeNode(0, data, sizeof(data));
     _assert(Node);
+    _assert(Node->data);
+    int* testdata = (int*)Node->data;
+    _assert((testdata[0] == 1));
+    _assert(testdata[1] == 0);
     free(Node);
     return 0;
 }
