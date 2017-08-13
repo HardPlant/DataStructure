@@ -10,6 +10,7 @@ int compileTest(){
 }
 
 int makeNodeTest(){
+    printf("[*] makeNodeTest:");
     int data[2] = {1,0};
     _BTreeNode* Node = makeNode(0, data, sizeof(data));
     _assert(Node);
@@ -39,6 +40,7 @@ int makeNodeTest(){
     return 0;
 }
 int makeTreeTest(){
+    printf("[*] TreeTest:");
     BTREE Tree = makeTree();
     int* testdata;
     int data[1] = {1};
@@ -50,12 +52,10 @@ int makeTreeTest(){
     _assert(Tree->data != NULL);
     testdata = Tree->data;
     _assert(testdata[0] == 1);
-    
     _assert(BTREE_insert(Tree, data2, sizeof(data)));
     _assert(Tree->left != NULL);
     testdata = Tree->left->data;
     _assert(testdata[0] == 0);
-
     _assert(BTREE_insert(Tree, data3, sizeof(data)));
     _assert(Tree->right != NULL);
     testdata = Tree->right->data;

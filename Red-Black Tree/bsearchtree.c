@@ -15,6 +15,27 @@ BTREE makeTree(){
     return makeNode(0, NULL, 0);
 }
 
+void node_swap(_BTreeNode** dst, _BTreeNode** src){
+    _BTreeNode* tmp = *dst;
+    *dst = *src;
+    *src = tmp;
+}
+BOOL node_isLE(_BTreeNode* dst, _BTreeNode* src){
+    if(dst->data[0] <= src-> data[0]) return 1;
+    else return 0;
+}
+BOOL checkAndExchange(_BTreeNode** dst, _BTreeNode** src,
+        BOOL (*cmp)(_BTreeNode*,_BTreeNode*))
+{
+    if(cmp(*dst, *src)){
+        node_swap(dst, src);
+        return 1;
+    }
+    else{
+        return 0;
+    }
+}
+
 BOOL BTREE_insert(BTREE tree, DataType target, size_t size){
     //NULL Check
     if(tree == NULL || target == NULL) return 0;
@@ -46,32 +67,10 @@ BOOL BTREE_insert(BTREE tree, DataType target, size_t size){
         _BTreeNode* node = makeNode(target[0], target, size);
         if(tree->left != NULL) tree->right = node;
         if(tree->right != NULL) tree->left = node;
-        checkAndExchange(tree->left,tree->right);
-    }
-    return 0;
-}
-BOOL _parentedInsert(){
-
-}
-void node_swap(_BTreeNode** dst, _BTreeNode** src){
-    _BTreeNode* tmp = *dst;
-    *dst = *src;
-    *src = tmp;
-}
-BOOL node_isLE(_BTreeNode* dst, _BTreeNode* src){
-    if(dst->data[0] <= src-> data[0]) return 1;
-    else return 0;
-}
-BOOL checkAndExchange(_BTreeNode** dst, _BTreeNode** src,
-        BOOL (*cmp)(_BTreeNode*,_BTreeNode*))
-{
-    if(cmp(*dst, *src)){
-        node_swap(dst, src);
+        checkAndExchange(&(tree->left),&(tree->right),node_isLE);
         return 1;
     }
-    else{
-        return 0;
-    }
+    return 0;
 }
 DataType BTREE_deleteKey(BTREE tree, KeyType target);
 DataType BTREE_deleteData(BTREE tree, DataType target);
