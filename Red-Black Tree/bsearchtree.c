@@ -3,6 +3,10 @@
 
 _BTreeNode* makeNode(){
     _BTreeNode* node = (_BTreeNode*)malloc(sizeof(_BTreeNode));
+    node->key = -1;
+    node->data = -1;
+    node->left = NULL;
+    node->right = NULL;
     return node;
 }
 BTREE makeTree(){
