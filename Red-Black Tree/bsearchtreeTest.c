@@ -16,7 +16,10 @@ int makeNodeTest(){
     return 0;
 }
 int makeTreeTest(){
-    _assert(TRUE);
+    BTREE Tree = makeTree();
+    _assert(Tree);
+
+    
     return 0;
 }
 
