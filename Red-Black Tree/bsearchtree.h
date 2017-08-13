@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stddef.h>
+#include <strings.h>
 
 typedef int KeyType;
 typedef int* DataType;
@@ -26,7 +27,8 @@ DataType BTREE_deleteData(BTREE tree, DataType target);
 DataType BTREE_search(BTREE tree, KeyType key);
 DataType BTREE_getMin(BTREE tree);
 DataType BTREE_getMax(BTREE tree);
-
+BOOL BTREE_fprintf(BTREE tree, int fd);
+BOOL BTREE_destroy(BTREE tree);
 DataType _getLeft(_BTreeNode node);
 DataType _getRight(_BTreeNode node);
 

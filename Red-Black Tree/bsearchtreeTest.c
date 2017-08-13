@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <strings.h>
 #include "testframework.h"
 #include "bsearchtree.h"
 
@@ -58,7 +59,7 @@ int makeTreeTest(){
     _assert(Tree->right != NULL);
     testdata = Tree->right->data;
     _assert(testdata[0] == 2);
-    free(Tree);
+    BTREE_destroy(Tree);
     return 0;
 }
 int insertTree321(){
@@ -83,7 +84,7 @@ int insertTree321(){
     _assert(testdata[0] == 2);
     testdata = Tree->right->data;
     _assert(testdata[0] == 3);
-    free(Tree);
+    BTREE_destroy(Tree);
     return 0;
 }
 int insertTree417(){
@@ -108,7 +109,7 @@ int insertTree417(){
     _assert(testdata[0] == 4);
     testdata = Tree->right->data;
     _assert(testdata[0] == 7);
-    free(Tree);
+    BTREE_destroy(Tree);
     return 0;
 }
 int insertTree3624157(){
@@ -131,6 +132,8 @@ int insertTree3624157(){
     _assert(BTREE_insert(Tree, data6, sizeof(data)));
     _assert(BTREE_insert(Tree, data7, sizeof(data)));
 
+    BTREE_fprintf(Tree, 1);
+
     _assert(Tree->data != NULL);
     _assert(Tree->left->left != NULL);
     _assert(Tree->left->right != NULL);
@@ -139,28 +142,7 @@ int insertTree3624157(){
     _assert(Tree->right != NULL);
     _assert(Tree->left != NULL);
     
-    testdata = Tree->left->left->data;
-    _assert(testdata[0] == 1);
-    printf("%d, ", *testdata);
-    testdata = Tree->left->right->data;
-    _assert(testdata[0] == 2);
-    printf("%d, ", *testdata);
-    testdata = Tree->left->data;
-    _assert(testdata[0] == 3);
-    printf("%d, ", *testdata);
-    testdata = Tree->data;
-    _assert(testdata[0] == 4);
-    printf("%d, ", *testdata);
-    testdata = Tree->right->data;
-    _assert(testdata[0] == 5);
-    printf("%d, ", *testdata);
-    testdata = Tree->right->left->data;
-    _assert(testdata[0] == 6);
-    printf("%d, ", *testdata);
-    testdata = Tree->right->right->data;
-    _assert(testdata[0] == 7);
-    printf("%d, ", *testdata);
-    free(Tree);
+
     return 0;
 }
 int all_tests() {
