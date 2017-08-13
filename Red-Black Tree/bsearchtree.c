@@ -12,6 +12,6 @@ _BTreeNode* makeNode(){
     _BTreeNode* node = (_BTreeNode*)malloc(sizeof(_BTreeNode));
     return node;
 }
-BTREE makeBST(){
-
+BTREE makeTree(){
+    return makeNode();
 }
